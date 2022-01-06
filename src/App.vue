@@ -4,10 +4,10 @@
     <small v-show="erro" id="nomeErro">Nome inválido!</small><br>
     <input type="text" placeholder="Nome" v-model="nomeField"><br>
     <input type="text" placeholder="E-mail" v-model="emailField"><br>
-    <input type="number" placeholder="Idade" v-model="idadeField">
-    <button @click="registerCustomer">Cadastrar</button>
+    <input type="number" placeholder="Idade" v-model="idadeField"><br>
+    <button @click="registerCustomer" class="button is-success">Cadastrar</button>
     <hr>
-    <div v-for="(cliente,index) in clientes" :key="cliente.id">
+    <div v-for="(cliente,index) in orderClientes" :key="cliente.id">
       <h3>{{index+1}}</h3>
       <Cliente :cliente="cliente" :showAge="true" @deleteMe="deleteCustomer($event)"/>
       <h4>Edição: </h4>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import Cliente from './components/Cliente.vue'
 //import Produto from './components/Produto.vue'
 
@@ -80,7 +81,12 @@ export default {
       var newArray = this.clientes.filter(cliente => cliente.id != $event.idCliente);
       this.clientes = newArray;
     }
-  }
+  },
+    computed: {
+      orderClientes: function(){
+        return _.orderBy(this.clientes,['nome'],['asc']);
+      }
+    }
 }
 </script>
 
