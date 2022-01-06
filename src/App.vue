@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <input type="text" v-model="clienteAlisson.nome">
-    <input type="text" v-model="clienteAlisson.email">
-    <Cliente :cliente="clienteAlisson" :showAge="true"/>
-    <Cliente :cliente="clienteAlisson" :showAge="false"/>
-    <Cliente :cliente="clienteAlisson" :showAge="true"/>
+    <div v-for="(cliente,index) in clientes" :key="cliente.id">
+      <h3>{{index+1}}</h3>
+      <Cliente :cliente="cliente" :showAge="true"/>
+      <hr>
+      <h4>Edição: </h4>
+      <input type="text" v-model="cliente.nome">
+      <input type="text" v-model="cliente.email">
+    </div>
+    
   </div>
 </template>
 
@@ -16,12 +20,27 @@ export default {
   name: 'App',
   data(){
     return {
-      postMalone: "I'm so fucking a Rockstar",
-      clienteAlisson: {
-          nome: "Alisson Andrade",
+      clientes: [
+        {
+          id: 1,
+          nome: "Alisson Nagrade",
           email: "alisson-nagrade@outlook.com", 
+          idade: "23"
+        },
+        {
+          id: 2,
+          nome: "Alisson Andrade",
+          email: "alisson-andrade@outlook.com", 
+          idade: "12"
+        },
+        {
+          id: 3,
+          nome: "Alisson Ambrósio",
+          email: "alisson-ambrosio@outlook.com", 
           idade: "32"
-      }
+        }
+
+      ]        
     }
   },
   components: {
